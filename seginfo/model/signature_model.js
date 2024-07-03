@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
 const signature = new mongoose.Schema({
-    signatureData: {
+    user_id: {
         type: String,
         required: true
     },
-    username: {
+    publicKey: {
+        type: String,
+        required: true
+    },
+    privateKey: {
         type: String,
         required: true
     },

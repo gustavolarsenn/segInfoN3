@@ -1,6 +1,8 @@
 const User = require('../model/user_model');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const signatureController = require('./signature_controller');
+
 
 const getUsers = async (req, res) => {
     try {
@@ -40,6 +42,8 @@ const registerUser = async (req, res) => {
         // Save the user to the database
         await newUser.save();
 
+        await signatureController.ensureKeysAndCreateSignature(newUser._id, newUser.name);
+
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         console.error(error);
@@ -68,9 +72,12 @@ const loginUser = async (req, res) => {
         }
 
         // Generate a JWT token
-        const token = jwt.sign({ name: user.name }, 'secret', { expiresIn: '1h' });
+        const token = jwt.sign({ _id: user._id ,name: user.name}, 'secret', { expiresIn: '1h' });
 
-        console.log(req.cookies.jwt)
+        res.cookie("jwt", token, {
+                        httpOnly: true,
+                        maxAge: 3 * 60 * 60 * 500, // 3hrs in ms
+                    });
 
         res.status(200).json({ token });
     } catch (error) {

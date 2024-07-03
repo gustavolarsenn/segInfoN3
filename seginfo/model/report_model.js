@@ -11,12 +11,18 @@ const reportSchema = new mongoose.Schema({
     },
     // Reference to Digital Signature
     signature: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Signature',
+        type: String,
     },
     validated: {
         type: Boolean,
         default: false
+    },
+    signedById: {
+        type: String,
+    },
+    createdById: {
+        type: String,
+        required: true
     },
     createdAt: {
         type: Date,
