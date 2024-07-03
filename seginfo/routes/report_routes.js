@@ -11,5 +11,6 @@ module.exports = app => {
 
     router.put('/reports/validate', ReportController.validateReport);
 
+    router.post('/reports/pdf', ReportController.generatePDF);
     app.use(router);
 }
