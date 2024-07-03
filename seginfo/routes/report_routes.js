@@ -7,9 +7,9 @@ module.exports = app => {
     // POST /users
     router.post('/reports/create', ReportController.createReport);
 
-    router.put('/reports/sign/:id', ReportController.signReport);
+    router.put('/reports/sign', ReportController.signReport);
 
-    router.put('/reports/validate/:id', ReportController.validateReport);
+    router.put('/reports/validate', ReportController.validateReport);
 
     app.use(router);
 }

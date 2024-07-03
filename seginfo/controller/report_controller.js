@@ -1,72 +1,87 @@
 const Report = require('../model/report_model');
 const signatureController = require('./signature_controller');
+const decode = require('../config/jwt');
 
-exports.getAllReports = async () => {
+exports.getAllReports = async (req, res) => {
     try {
         const reports = await Report.find();
-        return reports;
+        res.status(200).json(reports);
     } catch (error) {
         console.error('Error fetching reports:', error);
-        return { message: 'Error fetching reports', status: 500, error: error };
+        res.status(500).json({ message: 'Error fetching reports', error: error });
     }
 }
 
-exports.createReport = async (reportData, signatureData) => {
-    const { title, value } = reportData;
-
-    console.log('Creating report:', title, value)
-
-    // const signature = await signatureController.createSignature(signatureData);
-    const report = new Report({ ...reportData });
-    return await report.save();
+exports.createReport = async (req, res) => {
+    try {
+        const token = req.cookies.jwt;
+        const userInfo = decode.decodeUserInfo(token);
+        const report = new Report({ ...req.body, createdById: userInfo._id});
+        await report.save();
+        res.status(201).json(report);
+    } catch (error) {
+        console.error('Error creating report:', error);
+        res.status(500).json({ message: 'Error creating report', error: error });
+    }
 };
 
-exports.signReport = async (reportId, signatureData) => {
+exports.signReport = async (req, res) => {
+    const { reportId, signatureData } = req.body;
+
+    const token = req.cookies.jwt;
+    const userInfo = decode.decodeUserInfo(token);
+    const userId = userInfo._id;
+
     try {
-        const report = await
-        Report.findById(reportId);
+        const report = await Report.findById(reportId);
         if (!report) {
-            return { message: 'Report not found', status: 404 };
+            return res.status(404).json({ message: 'Report not found' });
         }
-        const signature = await signatureController.createSignature(signatureData);
+        const signature = await signatureController.createSignature(userId, signatureData);
+
+        report.signedById = userId;
         report.signature = signature;
         await report.save();
-        return report;
-    }
-    catch (error) {
+        res.status(200).json(report);
+    } catch (error) {
         console.error('Error signing report:', error);
-        return { message: 'Error signing report', status: 500, error: error };
+        res.status(500).json({ message: 'Error signing report', error: error });
     }
 }
 
-exports.validateReport = async (reportId) => {
+exports.validateReport = async (req, res) => {
+    const { reportId } = req.body;
+
     try {
-        const report = await
-        Report.findById(reportId);
+        const report = await Report.findById(reportId);
+
+        const validated = await signatureController.validateSignature('relatório', report);
         if (!report) {
-            return { message: 'Report not found', status: 404 };
+            return res.status(404).json({ message: 'Report not found' });
+        }
+        if (!validated) {
+            return res.status(400).json({ message: 'Invalid signature' });
         }
         report.validated = true;
         await report.save();
-        return report;
-    }
-    catch (error) {
+        res.status(200).json(report);
+    } catch (error) {
         console.error('Error validating report:', error);
-        return { message: 'Error validating report', status: 500, error: error };
+        res.status(500).json({ message: 'Error validating report', error: error });
     }
 }
 
-exports.getReportById = async (id) => {
+exports.getReportById = async (req, res) => {
+    const { id } = req.params;
+
     try {
         const report = await Report.findById(id).populate('digitalSignature');
         if (!report) {
-            // Handle the case where no report is found
-            return { message: 'Report not found', status: 404 };
+            return res.status(404).json({ message: 'Report not found' });
         }
-        return report; // Return the found report
+        res.status(200).json(report);
     } catch (error) {
-        // Handle any errors that occur during the database query
         console.error('Error fetching report:', error);
-        return { message: 'Error fetching report', status: 500, error: error };
+        res.status(500).json({ message: 'Error fetching report', error: error });
     }
 };
