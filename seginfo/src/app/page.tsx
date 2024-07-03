@@ -1,9 +1,9 @@
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./login/page";
 
 export default function Home() {
   return (
     <main>
-      <div className="h-screen flex justify-center items-center bg-lightblue px-5">
+      <div>
         <LoginForm />
       </div>
     </main>
