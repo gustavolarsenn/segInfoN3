@@ -99,7 +99,8 @@ export default function Employee() {
             <input type="password" className="grow" placeholder="Password"  value={password} onChange={handleChangePassword}/>
           </label>
           <label className="items-center gap-2 bg-white w-full">
-          <select className="select w-full max-w-xs input input-bordered flex items-center gap-2 bg-white w-full" value={type} onChange={handleChangeType}>
+          <select className="select w-full max-w-xs input input-bordered flex items-center gap-2 bg-white w-full" defaultValue="" value={type} onChange={handleChangeType} required>
+              <option value="" disabled>Select an option</option>
               <option>Colaborador</option>
               <option>Gerente</option>
               <option>Diretor</option>

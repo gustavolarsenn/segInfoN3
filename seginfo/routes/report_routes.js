@@ -4,6 +4,7 @@ module.exports = app => {
     const router = express.Router();
     // GET /users
     router.get('/reports', ReportController.getAllReports);
+    
     // POST /users
     router.post('/reports/create', ReportController.createReport);
 
