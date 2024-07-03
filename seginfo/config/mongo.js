@@ -1,19 +1,13 @@
 const mongoose = require('mongoose');
 
-// Construct the connection string
-const connectionString = `mongodb+srv://williamgl02:7vV5wxWTyGKciI5a@seginfo.43i0xz8.mongodb.net/?retryWrites=true&w=majority&appName=seginfo`;
-
-// Connect to MongoDB
-mongoose.connect(connectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => {
+const connectToMongoDB = async () => {
+    try {
+        await mongoose.connect('mongodb+srv://williamgl02:7vV5wxWTyGKciI5a@seginfo.43i0xz8.mongodb.net/seginfo?retryWrites=true&w=majority&appName=seginfo',);
         console.log('Connected to MongoDB');
-        // Your code here
-    })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error);
-    });
+    } catch (error) {
+        console.error('Could not connect to MongoDB:', error);
+        process.exit(1); // Exit the process with an error code
+    }
+};
 
-module.exports = mongoose;
+module.exports = connectToMongoDB;
