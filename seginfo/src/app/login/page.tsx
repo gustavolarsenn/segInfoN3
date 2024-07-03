@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import axios from "axios";
 import { login } from './login';
 
 export default function LoginForm() {

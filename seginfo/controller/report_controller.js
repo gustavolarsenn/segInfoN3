@@ -16,6 +16,7 @@ exports.generatePDF = async (req, res) => {
         doc.text(`Report ID: ${reportInfo._id} 
                 Report Title: ${reportInfo.title} 
                 Report Value: ${reportInfo.value} 
+                Report Description: ${reportInfo.description}
                 Report Created By: ${reportInfo.createdById} 
                 Report Signed By: ${reportInfo.signedById} 
                 Report Created At: ${reportInfo.createdAt}

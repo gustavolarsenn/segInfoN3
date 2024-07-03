@@ -9,6 +9,10 @@ const reportSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
     // Reference to Digital Signature
     signature: {
         type: String,
