@@ -33,7 +33,6 @@ export default function LoginForm() {
         router.push("/dashboard");
         setUsername(""); 
         setPassword(""); 
-        console.log("Logged in successfully");
       } else {
         setErrorMessage('Usuário não existe ou credenciais erradas!');
       }

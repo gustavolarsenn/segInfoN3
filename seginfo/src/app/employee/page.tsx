@@ -100,7 +100,7 @@ export default function Employee() {
           </label>
           <label className="items-center gap-2 bg-white w-full">
           <select className="select w-full max-w-xs input input-bordered flex items-center gap-2 bg-white w-full" defaultValue="" value={type} onChange={handleChangeType} required>
-              <option value="" disabled>Select an option</option>
+              <option value="" disabled>Tipo de usuário</option>
               <option>Colaborador</option>
               <option>Gerente</option>
               <option>Diretor</option>
