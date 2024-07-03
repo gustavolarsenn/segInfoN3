@@ -6,16 +6,16 @@ export default function Navbar() {
       <Link href="/dashboard" className="btn btn-ghost text-xl">
         Sistema de despesas
       </Link>
-        <ul
-          tabIndex={0}
-          className="menu center-menu bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-        >
+      <div className="flex items-center">
+        <ul className="menu menu-horizontal p-0">
           <li>
             <Link href="/dashboard">Home</Link>
           </li>
-          <li>
-            <a>Cadastro</a>
-            <ul className="p-2">
+          <li tabIndex={0} className="dropdown dropdown-hover">
+            <a className="dropdown-toggle">
+              Cadastro
+            </a>
+            <ul className="dropdown-content bg-lightblue menu p-2 shadow rounded-box w-52">
               <li>
                 <Link href="/employee">Funcionário</Link>
               </li>
@@ -28,6 +28,7 @@ export default function Navbar() {
             <Link href="/signature">Assinatura</Link>
           </li>
         </ul>
+      </div>
     </div>
   );
 }

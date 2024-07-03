@@ -6,7 +6,7 @@ export default function Employee() {
       <Navbar />
       <div className="bg-white h-screen flex justify-center items-center px-5">
         <form className="p-12 rounded-lg w-96 max-w-full bg-white flex justify-center items-center flex-col gap-2 shadow-2xl">
-          <h2 className="p-5">Cadastro de funcionário</h2>
+          <h2 className="p-5 text-xl">Cadastro de funcionário</h2>
           <label className="input input-bordered flex items-center gap-2 bg-white w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
