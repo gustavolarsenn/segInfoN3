@@ -84,8 +84,22 @@ const loginUser = async (req, res) => {
     }
 };
 
+const getCurrentUser = async (req, res) => {
+    try {
+        const token = req.cookies.jwt;
+        const decoded = jwt.verify(token, 'secret');
+        const user = await User.findById(decoded._id);
+        res.status(200).json(user);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
     getUsers,
+    getCurrentUser
 };

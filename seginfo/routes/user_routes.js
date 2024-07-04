@@ -7,6 +7,8 @@ module.exports = app => {
     // POST /users
     router.post('/register', UserController.registerUser);
 
+    router.post('/users/current', UserController.getCurrentUser)
+
     // POST /login
     router.post('/login', UserController.loginUser);
     app.use(router);

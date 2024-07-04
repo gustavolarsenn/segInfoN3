@@ -46,6 +46,7 @@ exports.getAllReports = async (req, res) => {
 exports.createReport = async (req, res) => {
     try {
         const token = req.cookies.jwt;
+        console.log(token)
         const userInfo = decode.decodeUserInfo(token);
         const report = new Report({ ...req.body, createdById: userInfo._id});
         await report.save();
