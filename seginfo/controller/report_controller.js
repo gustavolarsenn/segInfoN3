@@ -1,6 +1,8 @@
 const Report = require('../model/report_model');
+const User = require("../controller/user_controller");
 const signatureController = require('./signature_controller');
 const decode = require('../config/jwt');
+const axios = require("axios");
 
 const PDFDocument = require('pdfkit');
 const fs  = require('fs');
@@ -33,7 +35,17 @@ exports.generatePDF = async (req, res) => {
     }
 }
 
-exports.getAllReports = async (req, res) => {
+exports.getById = async (req, res) => {
+    try {
+        const reports = await Report.find({createdById: req.body.userid});
+        res.status(200).json(reports);
+    } catch (error) {
+        console.error('Error fetching reports:', error);
+        res.status(500).json({ message: 'Error fetching reports', error: error });
+    }
+}
+
+exports.getAllReports= async (req, res) => {
     try {
         const reports = await Report.find();
         res.status(200).json(reports);

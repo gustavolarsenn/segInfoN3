@@ -6,6 +6,9 @@ module.exports = app => {
 
     // GET /users
     router.post('/reports', jwtRules.colaboradorAuth, ReportController.getAllReports);
+
+    // POST /user_id
+    router.post('/reports/id', jwtRules.colaboradorAuth, ReportController.getById);
     
     // POST /users
     router.post('/reports/create', jwtRules.colaboradorAuth, ReportController.createReport);
@@ -15,5 +18,7 @@ module.exports = app => {
     router.put('/reports/validate', jwtRules.diretorAuth, ReportController.validateReport);
 
     router.post('/reports/pdf', jwtRules.colaboradorAuth, ReportController.generatePDF);
+
+
     app.use(router);
 }
