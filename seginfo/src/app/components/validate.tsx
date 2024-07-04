@@ -1,9 +1,9 @@
 import { FaFilePdf } from "react-icons/fa6";
 
-export default function SignatureGrid() {
+export default function ValidateGrid() {
     return (
       <div className="overflow-x-auto flex flex-col items-center">
-        <h1 className="text-2xl p-10">Assinatura</h1>
+        <h1 className="text-2xl p-10">Validar</h1>
         <table className="table">
           <thead className="text-xl">
             <tr>
@@ -26,7 +26,7 @@ export default function SignatureGrid() {
               <td>VALOR</td>
               <td>Purple</td>
               <td>
-                <button className="btn btn-xs text-white bg-green-600 border-none">Assinar</button>
+                <button className="btn btn-xs text-white bg-green-600 border-none">Validar</button>
               </td>
               <td>
                 <FaFilePdf className="text-2xl text-red-600 hover:cursor-pointer hover:opacity-50"/>
