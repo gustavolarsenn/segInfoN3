@@ -1,11 +1,12 @@
 import Navbar from "../components/navbar";
+import SignatureGrid from "../components/signature";
 
 export default function Signature() {
   return (
     <main>
       <Navbar />
       <div className="bg-white h-screen">
-        <h1>Assinatura</h1>
+        <SignatureGrid />
       </div>
     </main>
   );
