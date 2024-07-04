@@ -5,7 +5,7 @@ module.exports = app => {
     const jwtRules = require('../config/jwt');
 
     // GET /users
-    router.get('/reports', jwtRules.colaboradorAuth, ReportController.getAllReports);
+    router.post('/reports', jwtRules.colaboradorAuth, ReportController.getAllReports);
     
     // POST /users
     router.post('/reports/create', jwtRules.colaboradorAuth, ReportController.createReport);

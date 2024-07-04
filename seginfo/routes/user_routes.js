@@ -4,7 +4,7 @@ module.exports = app => {
     const jwtRules = require('../config/jwt');
     const router = express.Router();
     // GET /users
-    router.get('/users', jwtRules.gerenteAuth ,UserController.getUsers);
+    router.post('/users', jwtRules.gerenteAuth, UserController.getUsers);
     // POST /users
     router.post('/register', jwtRules.gerenteAuth, UserController.registerUser);
 

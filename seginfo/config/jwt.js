@@ -71,6 +71,6 @@ exports.gerenteAuth = (req, res, next) => {
         }
       })
     } else {
-      res.send("No token!", 401)
+      res.status(401).send("No token!")
     }
   }

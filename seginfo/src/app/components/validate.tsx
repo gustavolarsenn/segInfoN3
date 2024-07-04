@@ -21,15 +21,19 @@ export default function ValidateGrid() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/reports");
-      const data = await response.json();
+      const response = await axios.post('http://localhost:8000/reports', {}, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true 
+      });
 
-      setData(data);
-      console.log(data);
+      setData(response.data);
     } catch (error) {
       console.log(error);
     }
   }
+  
 
   const validateReport = async (_id: string) => {
     try {
