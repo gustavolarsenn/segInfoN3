@@ -22,7 +22,7 @@ exports.diretorAuth = (req, res, next) => {
   if (token) {
     jwt.verify(token, jwtSecret, (err, decodedToken) => {
       if (err) {
-        res.send("Not authorized", 401)
+        res.send(`Error validating token: ${err}`, 401)
       } else {
         if (decodedToken.type !== "Diretor") {
           res.send("Not authorized", 401)
@@ -32,7 +32,7 @@ exports.diretorAuth = (req, res, next) => {
       }
     })
   } else {
-    res.send("Not authorized", 401)
+    res.send("No token!", 401)
   }
 }
 
@@ -41,7 +41,7 @@ exports.gerenteAuth = (req, res, next) => {
     if (token) {
       jwt.verify(token, jwtSecret, (err, decodedToken) => {
         if (err) {
-          res.send("Not authorized", 401)
+          res.send(`Error validating token: ${err}`, 401)
         } else {
           if (decodedToken.type !== "Gerente" && decodedToken.type !== "Diretor") {
             res.send("Not authorized", 401)
@@ -51,7 +51,7 @@ exports.gerenteAuth = (req, res, next) => {
         }
       })
     } else {
-      res.send("Not authorized", 401)
+      res.send("No token!", 401)
     }
   }
   
@@ -60,9 +60,10 @@ exports.gerenteAuth = (req, res, next) => {
     if (token) {
       jwt.verify(token, jwtSecret, (err, decodedToken) => {
         if (err) {
-          res.send("Not authorized", 401)
+          res.send(`Error validating token: ${err}`, 401)
         } else {
           if (decodedToken.type !== "Colaborador" && decodedToken.type !== "Gerente" && decodedToken.type !== "Diretor"){
+            console.log(decodedToken.type)
             res.send("Not authorized", 401)
           } else {
             next()
@@ -70,6 +71,6 @@ exports.gerenteAuth = (req, res, next) => {
         }
       })
     } else {
-      res.send("Not authorized", 401)
+      res.send("No token!", 401)
     }
   }

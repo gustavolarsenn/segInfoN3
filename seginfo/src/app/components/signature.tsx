@@ -31,34 +31,30 @@ export default function SignatureGrid() {
       }
     }
     
-    // const signReport = async (id: string) => {
-    //   try {
-    //     const response = await fetch(`http://localhost:8000/reports/${id}`, {
-    //       method: "PUT",
-    //       body {
+    const signReport = async (_id: string) => {
+      try {
+        console.log(_id)
+        const response = await axios.put('http://localhost:8000/reports/sign', {
+          reportId: _id,
+          signatureData: "Signed"
+        }, { 
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true 
+        });
+       
+        console.log(response);
+        fetchData();
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-    //       },
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       },
-    //       body: JSON.stringify({
-    //         signature: true
-    //       })
-    //     });
-    //     const data = await response.json();
-
-    //     console.log(data);
-    //     fetchData();
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-
-    // const handleClickSign = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //   const target = event.target as HTMLButtonElement;
-    //   signReport(target.id);
-    // }
-
+    const handleClickSign = (event: React.MouseEvent<HTMLButtonElement>) => {
+      const target = event.target as HTMLButtonElement;
+      signReport(target.value);
+    }
 
     return (
       <div className="overflow-x-auto flex flex-col items-center">
@@ -91,7 +87,7 @@ export default function SignatureGrid() {
             <td>{item.signature ? "Sim": "Não"}</td>
             <td>{item.validated ? "Sim": "Não"}</td>
             <td>
-              <button className="btn btn-xs text-white bg-green-600 border-none">Assinar</button>
+              <button className="btn btn-xs text-white bg-green-600 border-none" value={item._id} onClick={handleClickSign}>Assinar</button>
             </td>
             <td>
               <FaFilePdf className="text-2xl text-red-600 hover:cursor-pointer hover:opacity-50"/>
@@ -104,5 +100,3 @@ export default function SignatureGrid() {
       </div>
     );
   }
-  
-  

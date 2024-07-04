@@ -5,7 +5,6 @@ export async function login(username, password) {
       const response = await axios.post('http://localhost:8000/login', {
         name: username,
         password: password,
-        
       }, { 
         headers: {
           'Content-Type': 'application/json',

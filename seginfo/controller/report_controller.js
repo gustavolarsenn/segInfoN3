@@ -82,12 +82,11 @@ exports.signReport = async (req, res) => {
 }
 
 exports.validateReport = async (req, res) => {
-    const { reportId } = req.body;
-
+    const { reportId, signatureData } = req.body;
     try {
         const report = await Report.findById(reportId);
 
-        const validated = await signatureController.validateSignature('relatório', report);
+        const validated = await signatureController.validateSignature(signatureData, report);
         if (!report) {
             return res.status(404).json({ message: 'Report not found' });
         }
