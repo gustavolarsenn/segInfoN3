@@ -4,3 +4,5 @@ Estudantes: - Luis Felipe Mondini
             - Thiago Freitas Saraiva 
             - Lucas Michels 
             - Guilherme Henrick Bessa
+
+Usuário ADM (Diretor) para o professor testar: Username = ADM, Senha = 123
