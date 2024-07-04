@@ -1,3 +1,4 @@
+import Grid from "../components/grid";
 import Navbar from "../components/navbar";
 
 export default function Dashboard() {
@@ -5,7 +6,7 @@ export default function Dashboard() {
     <main>
         <Navbar />
         <div className="bg-white h-screen">
-            <h1>Dashboard</h1>
+            <Grid></Grid>
         </div>
     </main>
   );
