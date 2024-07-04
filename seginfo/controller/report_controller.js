@@ -23,7 +23,7 @@ exports.generatePDF = async (req, res) => {
                 Report Validated: ${reportInfo.validated}`
         );
         // get a blob when you're done
-        doc.pipe(fs.createWriteStream('Demo.pdf'));
+        doc.pipe(fs.createWriteStream(`${reportInfo.title}.pdf`));
         doc.end();
 
         res.status(200).json({ message: 'PDF generated' });

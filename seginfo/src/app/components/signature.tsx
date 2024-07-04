@@ -54,6 +54,30 @@ export default function SignatureGrid() {
       }
     }
 
+    const downloadReport = async (_id: string) => {
+      try {
+        console.log(_id)
+        const response = await axios.post('http://localhost:8000/reports/pdf', {
+          reportId: _id,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true 
+        });
+       
+        console.log(response);
+        fetchData();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    const handleClickDownload = (event: React.MouseEvent<HTMLButtonElement>) => {
+      const target = event.target as HTMLButtonElement;
+      downloadReport(target.value);
+    }
+
     const handleClickSign = (event: React.MouseEvent<HTMLButtonElement>) => {
       const target = event.target as HTMLButtonElement;
       signReport(target.value);
@@ -93,7 +117,9 @@ export default function SignatureGrid() {
               <button className="btn btn-xs text-white bg-green-600 border-none" value={item._id} onClick={handleClickSign}>Assinar</button>
             </td>
             <td>
-              <FaFilePdf className="text-2xl text-red-600 hover:cursor-pointer hover:opacity-50"/>
+            <button className="btn btn-xs text-white bg-red-600 border-none" value={item._id} onClick={handleClickDownload}>
+              PDF
+            </button>
             </td>
           </tr>
         ))

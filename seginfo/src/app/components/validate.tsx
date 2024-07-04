@@ -33,7 +33,6 @@ export default function ValidateGrid() {
       console.log(error);
     }
   }
-  
 
   const validateReport = async (_id: string) => {
     try {
@@ -55,9 +54,33 @@ export default function ValidateGrid() {
     }
   }
 
+  const downloadReport = async (_id: string) => {
+    try {
+      console.log(_id)
+      const response = await axios.post('http://localhost:8000/reports/pdf', {
+        reportId: _id,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true 
+      });
+     
+      console.log(response);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleClickValidate = (event: React.MouseEvent<HTMLButtonElement>) => {
     const target = event.target as HTMLButtonElement;
     validateReport(target.value);
+  }
+
+  const handleClickDownload = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const target = event.target as HTMLButtonElement;
+    downloadReport(target.value);
   }
 
     return (
@@ -91,10 +114,14 @@ export default function ValidateGrid() {
           <td>{item.signature ? "Sim": "Não"}</td>
           <td>{item.validated ? "Sim": "Não"}</td>
           <td>
-            <button className="btn btn-xs text-white bg-green-600 border-none" value={item._id} onClick={handleClickValidate}>Validar</button>
+            <button className="btn btn-xs text-white bg-green-600 border-none" value={item._id} onClick={handleClickValidate}>
+              Validar
+            </button>
           </td>
           <td>
-            <FaFilePdf className="text-2xl text-red-600 hover:cursor-pointer hover:opacity-50"/>
+            <button className="btn btn-xs text-white bg-red-600 border-none" value={item._id} onClick={handleClickDownload}>
+              PDF
+            </button>
           </td>
         </tr>
       ))
